@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import { isLoggedIn } from '../../helpers/authHelper';
 
 const AuthLoadingScreen: NavigationStackScreenComponent = props => {
   useEffect(() => {
-    props.navigation.navigate('Auth');
+    const navigateToNextScreen = async (): Promise<void> => {
+      const loggedIn = await isLoggedIn();
+
+      if (!loggedIn) {
+        props.navigation.navigate('Auth');
+        return;
+      }
+
+      props.navigation.navigate('App');
+    };
+
+    navigateToNextScreen();
   });
 
   return (
