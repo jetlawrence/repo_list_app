@@ -9,8 +9,8 @@
 
 ## How to use app
 1. Type in any random email and password to enable Login button then press Login button.
-2. Type in search bar to search for Github repositories. Result will be displayed as list of repositories displaying name & stargazer count below the search bar.
-3. Press item from the list to display its Details Screen which displays name, stargazer count, description and button which opens the repo link in the browser when pressed.
+2. Type in search bar to search for Github repositories. Repositories list resulting from the search request will be displayed. Each list item displays repository's name and stargazer count.
+3. Press item from the list to display its Details Screen which displays its name, stargazer count, description and a button which opens the repo link in the browser when pressed.
 
 ## To Do
 - Handling of rate limit
