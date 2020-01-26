@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   Button,
+  Platform,
 } from 'react-native';
 import { login } from '../../helpers/authHelper';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
@@ -73,7 +74,8 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 20,
     margin: 20,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: Platform.OS == 'ios' ? 20 : 0,
     justifyContent: 'center',
   },
   loginButtonContainer: {

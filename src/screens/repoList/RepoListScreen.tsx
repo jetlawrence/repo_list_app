@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, TextInput } from 'react-native';
+import React from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  TextInput,
+  Platform,
+} from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import debounce from 'lodash.debounce';
 import LoadingView from './LoadingView';
@@ -68,7 +74,8 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: StyleSheet.hairlineWidth,
     margin: 20,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: Platform.OS == 'ios' ? 20 : 0,
     justifyContent: 'center',
   },
 });
