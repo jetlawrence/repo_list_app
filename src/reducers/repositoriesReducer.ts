@@ -9,6 +9,7 @@ export interface IRepositoriesState {
   error: string | null;
   totalCount: number;
   hasNextPage: boolean;
+  searchTerm: string;
 }
 
 export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
@@ -18,6 +19,7 @@ export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
   error: null,
   totalCount: 0,
   hasNextPage: false,
+  searchTerm: '',
 };
 
 const repositoriesReducer = (
@@ -53,6 +55,7 @@ const repositoriesReducer = (
         totalCount,
         currentPage,
         hasNextPage,
+        searchTerm,
       } = action.data;
 
       return {
@@ -61,6 +64,7 @@ const repositoriesReducer = (
         ...(totalCount ? { totalCount } : {}),
         ...(currentPage ? { currentPage } : {}),
         ...(hasNextPage ? { hasNextPage } : { hasNextPage: false }),
+        ...(searchTerm ? { searchTerm } : {}),
       };
     case repositoriesActionTypes.PUSH_REPOSITORIES:
       const {
@@ -68,6 +72,7 @@ const repositoriesReducer = (
         totalCount: newTotalCount,
         currentPage: newCurrentPage,
         hasNextPage: newHasNextPage,
+        searchTerm: newSearchTerm,
       } = action.data;
 
       return {
@@ -78,6 +83,7 @@ const repositoriesReducer = (
         ...(newHasNextPage
           ? { hasNextPage: newHasNextPage }
           : { hasNextPage: false }),
+        ...(newSearchTerm ? { searchTerm: newSearchTerm } : {}),
       };
 
     case repositoriesActionTypes.RESET_REPOSITORIES_STATE:

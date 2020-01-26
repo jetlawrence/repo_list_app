@@ -14,14 +14,17 @@ interface IFetchRepositoriesSuccessAction {
   type: typeof repositoriesActionTypes.FETCH_REPOSITORIES_SUCCESS;
 }
 
+interface IRepositoriesActionData {
+  repositories: Array<IRepository>;
+  totalCount?: number;
+  currentPage?: number;
+  hasNextPage?: boolean;
+  searchTerm?: string;
+}
+
 interface IUpdateRepositoriesAction {
   type: typeof repositoriesActionTypes.UPDATE_REPOSITORIES;
-  data: {
-    repositories: Array<IRepository>;
-    totalCount?: number;
-    currentPage?: number;
-    hasNextPage?: boolean;
-  };
+  data: IRepositoriesActionData;
 }
 
 interface IResetRepositoriesStateAction {
@@ -30,12 +33,7 @@ interface IResetRepositoriesStateAction {
 
 interface IPushRepositoriesAction {
   type: typeof repositoriesActionTypes.PUSH_REPOSITORIES;
-  data: {
-    repositories: Array<IRepository>;
-    totalCount?: number;
-    currentPage?: number;
-    hasNextPage?: boolean;
-  };
+  data: IRepositoriesActionData;
 }
 
 export type RepositoriesActionType =
@@ -70,12 +68,8 @@ export const updateRepositories = ({
   currentPage,
   totalCount,
   hasNextPage,
-}: {
-  repositories: Array<IRepository>;
-  currentPage?: number;
-  totalCount?: number;
-  hasNextPage?: boolean;
-}): IUpdateRepositoriesAction => {
+  searchTerm,
+}: IRepositoriesActionData): IUpdateRepositoriesAction => {
   return {
     type: repositoriesActionTypes.UPDATE_REPOSITORIES,
     data: {
@@ -83,6 +77,7 @@ export const updateRepositories = ({
       currentPage,
       totalCount,
       hasNextPage,
+      searchTerm,
     },
   };
 };
@@ -92,12 +87,8 @@ export const pushRepositories = ({
   currentPage,
   totalCount,
   hasNextPage,
-}: {
-  repositories: Array<IRepository>;
-  currentPage?: number;
-  totalCount?: number;
-  hasNextPage?: boolean;
-}): IPushRepositoriesAction => {
+  searchTerm,
+}: IRepositoriesActionData): IPushRepositoriesAction => {
   return {
     type: repositoriesActionTypes.PUSH_REPOSITORIES,
     data: {
@@ -105,6 +96,7 @@ export const pushRepositories = ({
       currentPage,
       totalCount,
       hasNextPage,
+      searchTerm,
     },
   };
 };

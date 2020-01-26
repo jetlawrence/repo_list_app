@@ -23,6 +23,7 @@ const mockData = {
   totalCount: 10,
   currentPage: 5,
   hasNextPage: true,
+  searchTerm: 'repo',
 };
 
 const mockData2 = {
@@ -38,6 +39,7 @@ const mockData2 = {
   totalCount: 9,
   currentPage: 4,
   hasNextPage: false,
+  searchTerm: 'repo2',
 };
 
 const mockData3 = {
@@ -53,6 +55,7 @@ const mockData3 = {
   totalCount: 10,
   currentPage: 6,
   hasNextPage: true,
+  searchTerm: 'repo3',
 };
 
 describe('repositoriesReducer', () => {
@@ -189,6 +192,7 @@ describe('repositoriesReducer', () => {
         ...(mockData3.currentPage
           ? { currentPage: mockData3.currentPage }
           : {}),
+        ...(mockData3.searchTerm ? { searchTerm: mockData3.searchTerm } : {}),
       });
     });
   });
