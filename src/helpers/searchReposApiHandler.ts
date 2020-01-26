@@ -1,9 +1,11 @@
 import { IApiRequestResult, IRepository } from '../common/types';
+import mockSearchReposApiResponse from './mockSearchReposApiResponse';
 
 export interface IRepoListRequestrResult {
   page: number;
   totalCount: number;
   repositories: Array<IRepository>;
+  hasNextPage: boolean;
 }
 
 const searchReposApiHandler = async ({
@@ -14,10 +16,11 @@ const searchReposApiHandler = async ({
   page?: number;
 }): Promise<IApiRequestResult<IRepoListRequestrResult>> => {
   try {
+    const PER_PAGE_COUNT = 50;
     const response = await fetch(
       `https://api.github.com/search/repositories?q=${encodeURI(
         searchTerm,
-      )}&page=${page}&per_page=50`,
+      )}&page=${page}&per_page=${PER_PAGE_COUNT}`,
     );
 
     const responseJson = await response.json();
@@ -41,6 +44,7 @@ const searchReposApiHandler = async ({
           stargazersCount: item['stargazers_count'] || 0,
           url: item['html_url'] || '',
         })),
+        hasNextPage: Math.ceil(totalCount / PER_PAGE_COUNT) > page,
       },
     };
   } catch (error) {
