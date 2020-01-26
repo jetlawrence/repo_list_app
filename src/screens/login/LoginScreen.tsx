@@ -1,8 +1,28 @@
-import React from 'react';
-import { KeyboardAvoidingView, StyleSheet, View, Button } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React, { useRef, useState, useEffect } from 'react';
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  View,
+  TextInput,
+  Button,
+} from 'react-native';
 
 const LoginScreen = () => {
+  const passwordInputRef = useRef<TextInput>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginDisabled, setLoginDisabled] = useState(false);
+
+  useEffect(() => {
+    if (email.trim() && password.trim()) {
+      setLoginDisabled(false);
+    } else {
+      setLoginDisabled(true);
+    }
+  }, [email, password]);
+
+  const onLogin = () => {};
+
   return (
     <KeyboardAvoidingView style={styles.mainContainer}>
       <View style={styles.loginInputContainer}>
@@ -10,17 +30,26 @@ const LoginScreen = () => {
           autoCapitalize="none"
           keyboardType="email-address"
           placeholder="email address"
+          onChangeText={setEmail}
+          onSubmitEditing={() => passwordInputRef.current?.focus()}
+          returnKeyType="next"
         />
       </View>
       <View style={styles.loginInputContainer}>
         <TextInput
+          ref={passwordInputRef}
           autoCapitalize="none"
           placeholder="password"
           secureTextEntry
+          onChangeText={setPassword}
         />
       </View>
       <View style={styles.loginButtonContainer}>
-        <Button title="Login" onPress={() => {}} />
+        <Button
+          disabled={loginDisabled}
+          title="Login"
+          onPress={() => onLogin()}
+        />
       </View>
     </KeyboardAvoidingView>
   );
