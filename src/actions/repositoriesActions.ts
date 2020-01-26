@@ -71,6 +71,7 @@ export const updateRepositories = ({
   repositories: Array<IRepository>;
   currentPage?: number;
   totalCount?: number;
+  hasNextPage?: boolean;
 }): IUpdateRepositoriesAction => {
   return {
     type: repositoriesActionTypes.UPDATE_REPOSITORIES,
@@ -82,12 +83,6 @@ export const updateRepositories = ({
   };
 };
 
-export const resetRepositoriesState = (): IResetRepositoriesStateAction => {
-  return {
-    type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
-  };
-};
-
 export const pushRepositories = ({
   repositories,
   currentPage,
@@ -96,6 +91,7 @@ export const pushRepositories = ({
   repositories: Array<IRepository>;
   currentPage?: number;
   totalCount?: number;
+  hasNextPage?: boolean;
 }): IPushRepositoriesAction => {
   return {
     type: repositoriesActionTypes.PUSH_REPOSITORIES,
@@ -104,5 +100,11 @@ export const pushRepositories = ({
       currentPage,
       totalCount,
     },
+  };
+};
+
+export const resetRepositoriesState = (): IResetRepositoriesStateAction => {
+  return {
+    type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
   };
 };

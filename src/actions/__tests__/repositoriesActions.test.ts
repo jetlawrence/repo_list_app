@@ -44,6 +44,7 @@ describe('repositoriesActions', () => {
       ],
       totalCount: 10,
       currentPage: 5,
+      hasNextPage: true,
     };
 
     const expectedAction = {
@@ -60,6 +61,7 @@ describe('repositoriesActions', () => {
         ],
         totalCount: 10,
         currentPage: 5,
+        hasNextPage: true,
       },
     };
 
@@ -83,6 +85,7 @@ describe('repositoriesActions', () => {
         ],
         totalCount: 10,
         currentPage: 6,
+        hasNextPage: false,
       },
     };
 
@@ -99,6 +102,7 @@ describe('repositoriesActions', () => {
         ],
         totalCount: 10,
         currentPage: 6,
+        hasNextPage: false,
       }),
     ).toEqual(expectedAction);
   });
