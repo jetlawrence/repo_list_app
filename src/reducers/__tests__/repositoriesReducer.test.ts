@@ -10,19 +10,19 @@ import {
 
 describe('repositoriesReducer', () => {
   it('returns initial state', () => {
-    expect(repositoriesReducer(undefined, {})).toEqual(
-      INITIAL_REPOSITORIES_STATE,
-    );
+    expect(repositoriesReducer(undefined)).toEqual(INITIAL_REPOSITORIES_STATE);
   });
 
-  it('handles FETCH_REPOSITORIES_REQUEST', () => {
-    expect(repositoriesReducer(undefined, onRequestRepositories())).toEqual({
-      ...INITIAL_REPOSITORIES_STATE,
-      isFetching: true,
-      error: null,
+  describe('FETCH_REPOSITORIES_REQUEST', () => {
+    it('handles FETCH_REPOSITORIES_REQUEST', () => {
+      expect(repositoriesReducer(undefined, onRequestRepositories())).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        isFetching: true,
+        error: null,
+      });
     });
 
-    it('handles setting state of isFetching from false to true and error to null', () => {
+    it('handles setting state of isFetching from false to true and error to null during FETCH_REPOSITORIES_REQUEST', () => {
       expect(
         repositoriesReducer(
           {
@@ -40,16 +40,18 @@ describe('repositoriesReducer', () => {
     });
   });
 
-  it('handles FETCH_REPOSITORIES_FAILURE', () => {
-    expect(
-      repositoriesReducer(undefined, onRequestRepositoriesFailed('Error')),
-    ).toEqual({
-      ...INITIAL_REPOSITORIES_STATE,
-      isFetching: false,
-      error: 'Error',
+  describe('FETCH_REPOSITORIES_FAILURE', () => {
+    it('handles FETCH_REPOSITORIES_FAILURE', () => {
+      expect(
+        repositoriesReducer(undefined, onRequestRepositoriesFailed('Error')),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        isFetching: false,
+        error: 'Error',
+      });
     });
 
-    it('handles setting state of isFetching from true to false and setting of error', () => {
+    it('handles setting state of isFetching from true to false and setting of error during FETCH_REPOSITORIES_FAILURE', () => {
       expect(
         repositoriesReducer(
           {
@@ -67,16 +69,18 @@ describe('repositoriesReducer', () => {
     });
   });
 
-  it('handles FETCH_REPOSITORIES_SUCCESS', () => {
-    expect(
-      repositoriesReducer(undefined, onRequestRepositoriesSuccess()),
-    ).toEqual({
-      ...INITIAL_REPOSITORIES_STATE,
-      isFetching: false,
-      error: null,
+  describe('FETCH_REPOSITORIES_SUCCESS', () => {
+    it('handles FETCH_REPOSITORIES_SUCCESS', () => {
+      expect(
+        repositoriesReducer(undefined, onRequestRepositoriesSuccess()),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        isFetching: false,
+        error: null,
+      });
     });
 
-    it('handles setting state of isFetching from true to false and setting of error to null', () => {
+    it('handles setting state of isFetching from true to false and setting of error to null during FETCH_REPOSITORIES_SUCCESS', () => {
       expect(
         repositoriesReducer(
           {
@@ -94,7 +98,7 @@ describe('repositoriesReducer', () => {
     });
   });
 
-  it('handles UPDATE_REPOSITORIES', () => {
+  describe('UPDATE_REPOSITORIES', () => {
     const mockData = {
       repositories: [
         {
@@ -123,14 +127,16 @@ describe('repositoriesReducer', () => {
       currentPage: 4,
     };
 
-    expect(
-      repositoriesReducer(undefined, updateRepositories(mockData)),
-    ).toEqual({
-      ...INITIAL_REPOSITORIES_STATE,
-      ...mockData,
+    it('handles UPDATE_REPOSITORIES', () => {
+      expect(
+        repositoriesReducer(undefined, updateRepositories(mockData)),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData,
+      });
     });
 
-    it('handles updating repositories by replacing old repositories with new repositories', () => {
+    it('handles updating repositories by replacing old repositories with new repositories during UPDATE_REPOSITORIES', () => {
       expect(
         repositoriesReducer(
           {
