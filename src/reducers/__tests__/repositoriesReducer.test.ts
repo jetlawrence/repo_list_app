@@ -9,6 +9,48 @@ import {
   resetRepositoriesState,
 } from '../../actions/repositoriesActions';
 
+const mockData = {
+  repositories: [
+    {
+      id: 1,
+      name: 'Repo',
+      description: 'A repo',
+      stargazersCount: 1,
+      url: 'www.google.com',
+    },
+  ],
+  totalCount: 10,
+  currentPage: 5,
+};
+
+const mockData2 = {
+  repositories: [
+    {
+      id: 2,
+      name: 'Repo2',
+      description: 'A repo2',
+      stargazersCount: 2,
+      url: 'www.yahoo.com',
+    },
+  ],
+  totalCount: 9,
+  currentPage: 4,
+};
+
+const mockData3 = {
+  repositories: [
+    {
+      id: 3,
+      name: 'Repo3',
+      description: 'A repo3',
+      stargazersCount: 3,
+      url: 'www.google3.com',
+    },
+  ],
+  totalCount: 10,
+  currentPage: 6,
+};
+
 describe('repositoriesReducer', () => {
   it('returns initial state', () => {
     expect(repositoriesReducer(undefined)).toEqual(INITIAL_REPOSITORIES_STATE);
@@ -100,70 +142,12 @@ describe('repositoriesReducer', () => {
   });
 
   describe('UPDATE_REPOSITORIES', () => {
-    const mockData = {
-      repositories: [
-        {
-          id: 1,
-          name: 'Repo',
-          description: 'A repo',
-          stargazersCount: 1,
-          url: 'www.google.com',
-        },
-      ],
-      totalCount: 10,
-      currentPage: 5,
-    };
-
-    const mockData2 = {
-      repositories: [
-        {
-          id: 2,
-          name: 'Repo2',
-          description: 'A repo2',
-          stargazersCount: 2,
-          url: 'www.yahoo.com',
-        },
-      ],
-      totalCount: 9,
-      currentPage: 4,
-    };
-
-    const mockData3 = {
-      repositories: [
-        {
-          id: 3,
-          name: 'Repo3',
-          description: 'A repo3',
-          stargazersCount: 3,
-          url: 'www.google3.com',
-        },
-      ],
-      totalCount: 10,
-      currentPage: 6,
-    };
-
     it('handles UPDATE_REPOSITORIES', () => {
       expect(
         repositoriesReducer(undefined, updateRepositories(mockData)),
       ).toEqual({
         ...INITIAL_REPOSITORIES_STATE,
         ...mockData,
-      });
-    });
-
-    it('handles PUSH_REPOSITORIES by pushing repositories to already existing repositories state', () => {
-      expect(
-        repositoriesReducer(
-          {
-            ...INITIAL_REPOSITORIES_STATE,
-            ...mockData,
-          },
-          updateRepositories(mockData3),
-        ),
-      ).toEqual({
-        ...INITIAL_REPOSITORIES_STATE,
-        ...mockData,
-        repositories: [...mockData.repositories, mockData3],
       });
     });
 
@@ -181,7 +165,27 @@ describe('repositoriesReducer', () => {
         ...mockData2,
       });
     });
+  });
 
+  describe('PUSH_REPOSITORIES', () => {
+    it('handles PUSH_REPOSITORIES by pushing repositories to already existing repositories state', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData,
+          },
+          updateRepositories(mockData3),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData,
+        repositories: [...mockData.repositories, mockData3],
+      });
+    });
+  });
+
+  describe('RESET_REPOSITORIES_STATE', () => {
     it('handles RESET_REPOSITORIES_STATE and resets state to initial state', () => {
       expect(
         repositoriesReducer(
