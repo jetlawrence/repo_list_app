@@ -1,11 +1,19 @@
 import React from 'react';
 import { IRepository } from '../../common/types';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import RepoListItem from './RepoListItem';
 
 interface IProps {
   repositories: Array<IRepository>;
+  hasNextPage?: boolean;
   onPressRepository?: (repository: IRepository) => any;
+  onLoadNextPage?: () => any;
 }
 
 const RepoListView = React.memo((props: IProps) => (
@@ -25,6 +33,10 @@ const RepoListView = React.memo((props: IProps) => (
       ListEmptyComponent={<Text>No repositories found</Text>}
       contentContainerStyle={
         !props.repositories.length ? styles.emptyListContainer : null
+      }
+      ListFooterComponent={props.hasNextPage ? <ActivityIndicator /> : null}
+      onEndReached={() =>
+        props.onLoadNextPage && props.hasNextPage && props.onLoadNextPage()
       }
     />
   </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, View, TextInput } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import debounce from 'lodash.debounce';
@@ -10,8 +10,17 @@ import useRepositories from './useRepositories';
 import LogoutButton from './LogoutButton';
 
 const RepoListScreen: NavigationStackScreenComponent = props => {
-  const { currentRepositoriesState, searchRepos } = useRepositories();
-  const { isFetching, error, repositories } = currentRepositoriesState;
+  const {
+    currentRepositoriesState,
+    searchRepos,
+    loadNextPage,
+  } = useRepositories();
+  const {
+    isFetching,
+    error,
+    repositories,
+    hasNextPage,
+  } = currentRepositoriesState;
 
   const searchReposDebounced = debounce(searchRepos, 800);
 
@@ -34,6 +43,8 @@ const RepoListScreen: NavigationStackScreenComponent = props => {
           onPressRepository={repository =>
             props.navigation.push('RepoDetails', { repository })
           }
+          hasNextPage={hasNextPage}
+          onLoadNextPage={loadNextPage}
         />
       ) : (
         <InitialView />

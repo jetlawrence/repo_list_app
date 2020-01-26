@@ -9,6 +9,7 @@ import { IRepositoriesState } from '../../reducers/repositoriesReducer';
 export interface IUseRepositoriesReturn {
   currentRepositoriesState: IRepositoriesState;
   searchRepos: (searchTerm: string) => Promise<void>;
+  loadNextPage: () => Promise<void>;
 }
 
 const useRepositories = (): IUseRepositoriesReturn => {
@@ -25,16 +26,47 @@ const useRepositories = (): IUseRepositoriesReturn => {
       repositories,
       totalCount,
       currentPage,
+      hasNextPage,
+      searchTerm,
     }: {
       repositories: Array<IRepository>;
       totalCount?: number;
       currentPage?: number;
+      hasNextPage?: boolean;
+      searchTerm?: string;
     }) =>
       dispatch(
         repositoriesActions.updateRepositories({
           repositories,
           totalCount,
           currentPage,
+          hasNextPage,
+          searchTerm,
+        }),
+      ),
+  );
+
+  const pushRepositories = wrapDispatchInUseCallback(
+    ({
+      repositories,
+      totalCount,
+      currentPage,
+      hasNextPage,
+      searchTerm,
+    }: {
+      repositories: Array<IRepository>;
+      totalCount?: number;
+      currentPage?: number;
+      hasNextPage?: boolean;
+      searchTerm?: string;
+    }) =>
+      dispatch(
+        repositoriesActions.pushRepositories({
+          repositories,
+          totalCount,
+          currentPage,
+          hasNextPage,
+          searchTerm,
         }),
       ),
   );
@@ -71,6 +103,8 @@ const useRepositories = (): IUseRepositoriesReturn => {
       setRepositories({
         repositories: fetchResult.response?.repositories || [],
         totalCount: fetchResult.response?.totalCount || 0,
+        hasNextPage: fetchResult.response?.hasNextPage,
+        searchTerm: searchTerm,
       });
 
       finishFetching();
@@ -79,7 +113,47 @@ const useRepositories = (): IUseRepositoriesReturn => {
     }
   };
 
-  return { currentRepositoriesState, searchRepos };
+  let isLoadingNextPage = false;
+
+  const loadNextPage = async () => {
+    try {
+      const {
+        searchTerm = '',
+        currentPage = 1,
+        hasNextPage,
+      } = currentRepositoriesState;
+
+      if (!searchTerm.trim() || !hasNextPage || isLoadingNextPage) {
+        return;
+      }
+
+      isLoadingNextPage = true;
+
+      const fetchResult = await searchReposApiHandler({
+        searchTerm,
+        page: currentPage + 1,
+      });
+
+      if (fetchResult.error) {
+        console.log(fetchResult.error);
+        return;
+      }
+
+      isLoadingNextPage = false;
+
+      pushRepositories({
+        repositories: fetchResult.response?.repositories || [],
+        totalCount: fetchResult.response?.totalCount || 0,
+        hasNextPage: fetchResult.response?.hasNextPage,
+        searchTerm: searchTerm,
+        currentPage: currentPage + 1,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { currentRepositoriesState, searchRepos, loadNextPage };
 };
 
 export default useRepositories;
