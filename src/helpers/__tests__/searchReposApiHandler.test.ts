@@ -58,7 +58,6 @@ describe('searchReposApiHandler', () => {
           },
           {
             id: 32948863,
-            node_id: 'MDEwOlJlcG9zaXRvcnkzMjk0ODg2Mw==',
             name: 'awesome-react-native',
             description: 'Awesome react native',
             url: 'https://github.com/jondot/awesome-react-native',
