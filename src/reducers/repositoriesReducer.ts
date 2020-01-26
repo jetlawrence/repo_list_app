@@ -8,6 +8,7 @@ export interface IRepositoriesState {
   isFetching: boolean;
   error: string | null;
   totalCount: number;
+  hasNextPage: boolean;
 }
 
 export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
@@ -16,6 +17,7 @@ export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
   isFetching: false,
   error: null,
   totalCount: 0,
+  hasNextPage: false,
 };
 
 const repositoriesReducer = (
@@ -46,19 +48,26 @@ const repositoriesReducer = (
         error: null,
       };
     case repositoriesActionTypes.UPDATE_REPOSITORIES:
-      const { repositories, totalCount, currentPage } = action.data;
+      const {
+        repositories,
+        totalCount,
+        currentPage,
+        hasNextPage,
+      } = action.data;
 
       return {
         ...state,
         repositories,
         ...(totalCount ? { totalCount } : {}),
         ...(currentPage ? { currentPage } : {}),
+        ...(hasNextPage ? { hasNextPage } : { hasNextPage: false }),
       };
     case repositoriesActionTypes.PUSH_REPOSITORIES:
       const {
         repositories: newRepositories,
         totalCount: newTotalCount,
         currentPage: newCurrentPage,
+        hasNextPage: newHasNextPage,
       } = action.data;
 
       return {
@@ -66,6 +75,9 @@ const repositoriesReducer = (
         repositories: [...(state.repositories || []), ...newRepositories],
         ...(newTotalCount ? { totalCount: newTotalCount } : {}),
         ...(newCurrentPage ? { currentPage: newCurrentPage } : {}),
+        ...(newHasNextPage
+          ? { hasNextPage: newHasNextPage }
+          : { hasNextPage: false }),
       };
 
     case repositoriesActionTypes.RESET_REPOSITORIES_STATE:
