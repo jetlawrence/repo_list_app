@@ -1,6 +1,5 @@
 import * as repositoriesActionTypes from '../actionTypes/repositoriesActionTypes';
 import * as repositoriesActions from '../repositoriesActions';
-import IRepository from '../../common/types/IRepository';
 
 describe('repositoriesActions', () => {
   it('should create an action for start of request of repositories', () => {

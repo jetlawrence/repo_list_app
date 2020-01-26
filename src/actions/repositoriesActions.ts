@@ -23,6 +23,12 @@ interface IUpdateRepositoriesAction {
   };
 }
 
+export type RepositoriesActionType =
+  | IFetchRepositoriesRequestAction
+  | IFetchRepositoriesFailureAction
+  | IFetchRepositoriesSuccessAction
+  | IUpdateRepositoriesAction;
+
 export const onRequestRepositories = (): IFetchRepositoriesRequestAction => {
   return {
     type: repositoriesActionTypes.FETCH_REPOSITORIES_REQUEST,
