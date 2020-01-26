@@ -95,4 +95,13 @@ export const pushRepositories = ({
   repositories: Array<IRepository>;
   currentPage?: number;
   totalCount?: number;
-}) => {};
+}): IPushRepositoriesAction => {
+  return {
+    type: repositoriesActionTypes.PUSH_REPOSITORIES,
+    data: {
+      repositories,
+      currentPage,
+      totalCount,
+    },
+  };
+};
