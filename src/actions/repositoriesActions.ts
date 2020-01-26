@@ -27,6 +27,15 @@ interface IResetRepositoriesStateAction {
   type: typeof repositoriesActionTypes.RESET_REPOSITORIES_STATE;
 }
 
+interface IPushRepositoriesAction {
+  type: typeof repositoriesActionTypes.PUSH_REPOSITORIES;
+  data: {
+    repositories: Array<IRepository>;
+    totalCount?: number;
+    currentPage?: number;
+  };
+}
+
 export type RepositoriesActionType =
   | IFetchRepositoriesRequestAction
   | IFetchRepositoriesFailureAction
@@ -77,3 +86,13 @@ export const resetRepositoriesState = (): IResetRepositoriesStateAction => {
     type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
   };
 };
+
+export const pushRepositories = ({
+  repositories,
+  currentPage,
+  totalCount,
+}: {
+  repositories: Array<IRepository>;
+  currentPage?: number;
+  totalCount?: number;
+}) => {};

@@ -68,6 +68,41 @@ describe('repositoriesActions', () => {
     );
   });
 
+  it('should create an action for pushing repositories to state', () => {
+    const expectedAction = {
+      type: repositoriesActionTypes.PUSH_REPOSITORIES,
+      data: {
+        repositories: [
+          {
+            id: 3,
+            name: 'Repo3',
+            description: 'A repo3',
+            stargazersCount: 3,
+            url: 'www.google3.com',
+          },
+        ],
+        totalCount: 10,
+        currentPage: 6,
+      },
+    };
+
+    expect(
+      repositoriesActions.pushRepositories({
+        repositories: [
+          {
+            id: 3,
+            name: 'Repo3',
+            description: 'A repo3',
+            stargazersCount: 3,
+            url: 'www.google3.com',
+          },
+        ],
+        totalCount: 10,
+        currentPage: 6,
+      }),
+    ).toEqual(expectedAction);
+  });
+
   it('should create an action for resetting of repositories state', () => {
     const expectedAction = {
       type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
