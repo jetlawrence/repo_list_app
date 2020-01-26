@@ -20,18 +20,18 @@ describe('authHelper', () => {
 
     expect(AsyncStorage.getItem).toHaveBeenCalledWith('USER_TOKEN_KEY');
   });
-  it('isLoggedIn returns true if AsyncStorage has saved user token key', () => {
-    jest.mock('@react-native-community/async-storage', () => ({
-      getItem: (key: string) => key === 'USER_TOKEN_KEY',
-    }));
+  it('isLoggedIn returns true if AsyncStorage has saved user token key', async () => {
+    await AsyncStorage.setItem('USER_TOKEN_KEY', 'random');
 
-    expect(isLoggedIn()).toBe(true);
+    const loggedIn = await isLoggedIn();
+
+    expect(loggedIn).toBe(true);
   });
-  it('isLoggedIn returns false if AsyncStorage has not saved user token key', () => {
-    jest.mock('@react-native-community/async-storage', () => ({
-      getItem: (key: string) => !(key === 'USER_TOKEN_KEY'),
-    }));
+  it('isLoggedIn returns false if AsyncStorage has not saved user token key', async () => {
+    await AsyncStorage.removeItem('USER_TOKEN_KEY');
 
-    expect(isLoggedIn()).toBe(false);
+    const loggedIn = await isLoggedIn();
+
+    expect(loggedIn).toBe(false);
   });
 });
