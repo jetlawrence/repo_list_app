@@ -54,6 +54,8 @@ const repositoriesReducer = (
         ...(totalCount ? { totalCount } : {}),
         ...(currentPage ? { currentPage } : {}),
       };
+    case repositoriesActionTypes.RESET_REPOSITORIES_STATE:
+      return INITIAL_REPOSITORIES_STATE;
     default:
       return state;
   }
