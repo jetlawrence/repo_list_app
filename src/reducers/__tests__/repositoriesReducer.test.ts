@@ -6,6 +6,7 @@ import {
   onRequestRepositoriesFailed,
   onRequestRepositoriesSuccess,
   updateRepositories,
+  resetRepositoriesState,
 } from '../../actions/repositoriesActions';
 
 describe('repositoriesReducer', () => {
@@ -149,6 +150,18 @@ describe('repositoriesReducer', () => {
         ...INITIAL_REPOSITORIES_STATE,
         ...mockData2,
       });
+    });
+
+    it('handles RESET_REPOSITORIES_STATE and resets state to initial state', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData,
+          },
+          resetRepositoriesState(),
+        ),
+      ).toEqual(INITIAL_REPOSITORIES_STATE);
     });
   });
 });
