@@ -128,12 +128,42 @@ describe('repositoriesReducer', () => {
       currentPage: 4,
     };
 
+    const mockData3 = {
+      repositories: [
+        {
+          id: 3,
+          name: 'Repo3',
+          description: 'A repo3',
+          stargazersCount: 3,
+          url: 'www.google3.com',
+        },
+      ],
+      totalCount: 10,
+      currentPage: 6,
+    };
+
     it('handles UPDATE_REPOSITORIES', () => {
       expect(
         repositoriesReducer(undefined, updateRepositories(mockData)),
       ).toEqual({
         ...INITIAL_REPOSITORIES_STATE,
         ...mockData,
+      });
+    });
+
+    it('handles PUSH_REPOSITORIES by pushing repositories to already existing repositories state', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData,
+          },
+          updateRepositories(mockData3),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData,
+        repositories: [...mockData.repositories, mockData3],
       });
     });
 
