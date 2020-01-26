@@ -55,7 +55,7 @@ const repositoriesReducer = (
         ...(currentPage ? { currentPage } : {}),
       };
     default:
-      break;
+      return state;
   }
 };
 
