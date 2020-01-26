@@ -72,4 +72,8 @@ export const updateRepositories = ({
   };
 };
 
-export const resetRepositoriesState = () => {};
+export const resetRepositoriesState = (): IResetRepositoriesStateAction => {
+  return {
+    type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
+  };
+};
