@@ -23,11 +23,16 @@ interface IUpdateRepositoriesAction {
   };
 }
 
+interface IResetRepositoriesStateAction {
+  type: typeof repositoriesActionTypes.RESET_REPOSITORIES_STATE;
+}
+
 export type RepositoriesActionType =
   | IFetchRepositoriesRequestAction
   | IFetchRepositoriesFailureAction
   | IFetchRepositoriesSuccessAction
-  | IUpdateRepositoriesAction;
+  | IUpdateRepositoriesAction
+  | IResetRepositoriesStateAction;
 
 export const onRequestRepositories = (): IFetchRepositoriesRequestAction => {
   return {
@@ -66,3 +71,5 @@ export const updateRepositories = ({
     },
   };
 };
+
+export const resetRepositoriesState = () => {};

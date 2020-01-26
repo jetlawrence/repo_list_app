@@ -9,6 +9,7 @@ describe('repositoriesActions', () => {
 
     expect(repositoriesActions.onRequestRepositories()).toEqual(expectedAction);
   });
+
   it('should create an action for failure of request of repositories', () => {
     const expectedAction = {
       type: repositoriesActionTypes.FETCH_REPOSITORIES_FAILURE,
@@ -19,6 +20,7 @@ describe('repositoriesActions', () => {
       expectedAction,
     );
   });
+
   it('should create an action for success of request of repositories', () => {
     const expectedAction = {
       type: repositoriesActionTypes.FETCH_REPOSITORIES_SUCCESS,
@@ -28,6 +30,7 @@ describe('repositoriesActions', () => {
       expectedAction,
     );
   });
+
   it('should create an action for updating repositories', () => {
     const repositoriesData = {
       repositories: [
@@ -61,6 +64,16 @@ describe('repositoriesActions', () => {
     };
 
     expect(repositoriesActions.updateRepositories(repositoriesData)).toEqual(
+      expectedAction,
+    );
+  });
+
+  it('should create an action for resetting of repositories state', () => {
+    const expectedAction = {
+      type: repositoriesActionTypes.RESET_REPOSITORIES_STATE,
+    };
+
+    expect(repositoriesActions.resetRepositoriesState()).toEqual(
       expectedAction,
     );
   });
