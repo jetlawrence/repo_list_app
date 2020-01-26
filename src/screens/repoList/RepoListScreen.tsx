@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, TextInput } from 'react-native';
-import { logout } from '../../helpers/authHelper';
-import { NavigationInjectedProps } from 'react-navigation';
+import React from 'react';
+import { SafeAreaView, StyleSheet, View, TextInput } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import debounce from 'lodash.debounce';
 import LoadingView from './LoadingView';
@@ -44,9 +42,7 @@ const RepoListScreen: NavigationStackScreenComponent = props => {
   );
 };
 
-RepoListScreen.navigationOptions = ({
-  navigation,
-}: NavigationInjectedProps) => ({
+RepoListScreen.navigationOptions = () => ({
   headerRight: () => <LogoutButton />,
 });
 
