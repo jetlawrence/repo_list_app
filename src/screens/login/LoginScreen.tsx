@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  Text,
-  KeyboardAvoidingView,
-  StyleSheet,
-  View,
-  Button,
-} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 const LoginScreen = () => {
