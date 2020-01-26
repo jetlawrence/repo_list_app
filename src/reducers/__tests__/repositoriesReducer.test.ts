@@ -180,7 +180,11 @@ describe('repositoriesReducer', () => {
       ).toEqual({
         ...INITIAL_REPOSITORIES_STATE,
         ...mockData,
-        repositories: [...mockData.repositories, mockData3],
+        repositories: [...mockData.repositories, ...mockData3.repositories],
+        ...(mockData3.totalCount ? { totalCount: mockData3.totalCount } : {}),
+        ...(mockData3.currentPage
+          ? { currentPage: mockData3.currentPage }
+          : {}),
       });
     });
   });
