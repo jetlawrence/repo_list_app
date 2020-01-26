@@ -20,6 +20,7 @@ interface IUpdateRepositoriesAction {
     repositories: Array<IRepository>;
     totalCount?: number;
     currentPage?: number;
+    hasNextPage?: boolean;
   };
 }
 
@@ -33,6 +34,7 @@ interface IPushRepositoriesAction {
     repositories: Array<IRepository>;
     totalCount?: number;
     currentPage?: number;
+    hasNextPage?: boolean;
   };
 }
 
@@ -67,6 +69,7 @@ export const updateRepositories = ({
   repositories,
   currentPage,
   totalCount,
+  hasNextPage,
 }: {
   repositories: Array<IRepository>;
   currentPage?: number;
@@ -79,6 +82,7 @@ export const updateRepositories = ({
       repositories,
       currentPage,
       totalCount,
+      hasNextPage,
     },
   };
 };
@@ -87,6 +91,7 @@ export const pushRepositories = ({
   repositories,
   currentPage,
   totalCount,
+  hasNextPage,
 }: {
   repositories: Array<IRepository>;
   currentPage?: number;
@@ -99,6 +104,7 @@ export const pushRepositories = ({
       repositories,
       currentPage,
       totalCount,
+      hasNextPage,
     },
   };
 };
