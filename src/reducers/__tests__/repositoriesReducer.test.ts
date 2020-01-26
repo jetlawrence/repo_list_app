@@ -22,6 +22,7 @@ const mockData = {
   ],
   totalCount: 10,
   currentPage: 5,
+  hasNextPage: true,
 };
 
 const mockData2 = {
@@ -36,6 +37,7 @@ const mockData2 = {
   ],
   totalCount: 9,
   currentPage: 4,
+  hasNextPage: false,
 };
 
 const mockData3 = {
@@ -50,6 +52,7 @@ const mockData3 = {
   ],
   totalCount: 10,
   currentPage: 6,
+  hasNextPage: true,
 };
 
 describe('repositoriesReducer', () => {
