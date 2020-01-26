@@ -6,8 +6,10 @@ import {
   TextInput,
   Button,
 } from 'react-native';
+import { login } from '../../helpers/authHelper';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
-const LoginScreen = () => {
+const LoginScreen: NavigationStackScreenComponent = props => {
   const passwordInputRef = useRef<TextInput>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +23,10 @@ const LoginScreen = () => {
     }
   }, [email, password]);
 
-  const onLogin = () => {};
+  const onLogin = async (): Promise<void> => {
+    await login(email, password);
+    props.navigation.navigate('App');
+  };
 
   return (
     <KeyboardAvoidingView style={styles.mainContainer}>
