@@ -41,7 +41,8 @@ export type RepositoriesActionType =
   | IFetchRepositoriesFailureAction
   | IFetchRepositoriesSuccessAction
   | IUpdateRepositoriesAction
-  | IResetRepositoriesStateAction;
+  | IResetRepositoriesStateAction
+  | IPushRepositoriesAction;
 
 export const onRequestRepositories = (): IFetchRepositoriesRequestAction => {
   return {

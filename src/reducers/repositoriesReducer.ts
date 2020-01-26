@@ -54,6 +54,20 @@ const repositoriesReducer = (
         ...(totalCount ? { totalCount } : {}),
         ...(currentPage ? { currentPage } : {}),
       };
+    case repositoriesActionTypes.PUSH_REPOSITORIES:
+      const {
+        repositories: newRepositories,
+        totalCount: newTotalCount,
+        currentPage: newCurrentPage,
+      } = action.data;
+
+      return {
+        ...state,
+        repositories: [...(state.repositories || []), ...newRepositories],
+        ...(newTotalCount ? { totalCount: newTotalCount } : {}),
+        ...(newCurrentPage ? { currentPage: newCurrentPage } : {}),
+      };
+
     case repositoriesActionTypes.RESET_REPOSITORIES_STATE:
       return INITIAL_REPOSITORIES_STATE;
     default:
