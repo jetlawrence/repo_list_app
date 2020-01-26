@@ -8,6 +8,7 @@ export interface IRepositoriesState {
   isFetching: boolean;
   error: string | null;
   totalCount: number;
+  hasNextPage: boolean;
 }
 
 export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
@@ -16,6 +17,7 @@ export const INITIAL_REPOSITORIES_STATE: IRepositoriesState = {
   isFetching: false,
   error: null,
   totalCount: 0,
+  hasNextPage: false,
 };
 
 const repositoriesReducer = (

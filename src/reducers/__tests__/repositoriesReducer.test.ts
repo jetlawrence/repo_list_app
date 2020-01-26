@@ -20,8 +20,8 @@ const mockData = {
       url: 'www.google.com',
     },
   ],
-  totalCount: 10,
-  currentPage: 5,
+  totalCount: 3,
+  currentPage: 1,
 };
 
 const mockData2 = {
@@ -34,8 +34,8 @@ const mockData2 = {
       url: 'www.yahoo.com',
     },
   ],
-  totalCount: 9,
-  currentPage: 4,
+  totalCount: 3,
+  currentPage: 3,
 };
 
 const mockData3 = {
@@ -48,8 +48,8 @@ const mockData3 = {
       url: 'www.google3.com',
     },
   ],
-  totalCount: 10,
-  currentPage: 6,
+  totalCount: 3,
+  currentPage: 3,
 };
 
 describe('repositoriesReducer', () => {
@@ -166,6 +166,40 @@ describe('repositoriesReducer', () => {
         ...mockData2,
       });
     });
+
+    it('handles updating of hasNextPage to true if there is still next page of repositories during UPDATE_REPOSITORIES', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData,
+            hasNextPage: false,
+          },
+          updateRepositories(mockData2),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData2,
+        hasNextPage: true,
+      });
+    });
+
+    it('handles updating of hasNextPage to false if there no more next page of repositories during UPDATE_REPOSITORIES', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData2,
+            hasNextPage: true,
+          },
+          updateRepositories(mockData3),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData3,
+        hasNextPage: false,
+      });
+    });
   });
 
   describe('PUSH_REPOSITORIES', () => {
@@ -175,6 +209,7 @@ describe('repositoriesReducer', () => {
           {
             ...INITIAL_REPOSITORIES_STATE,
             ...mockData,
+            hasNextPage: false,
           },
           pushRepositories(mockData3),
         ),
@@ -186,6 +221,48 @@ describe('repositoriesReducer', () => {
         ...(mockData3.currentPage
           ? { currentPage: mockData3.currentPage }
           : {}),
+      });
+    });
+
+    it('handles updating of hasNextPage to true if there is still next page of repositories during PUSH_REPOSITORIES', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData,
+          },
+          updateRepositories(mockData2),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData,
+        repositories: [...mockData.repositories, ...mockData2.repositories],
+        ...(mockData2.totalCount ? { totalCount: mockData2.totalCount } : {}),
+        ...(mockData2.currentPage
+          ? { currentPage: mockData2.currentPage }
+          : {}),
+        hasNextPage: true,
+      });
+    });
+
+    it('handles updating of hasNextPage to false if there is no more next page of repositories during PUSH_REPOSITORIES', () => {
+      expect(
+        repositoriesReducer(
+          {
+            ...INITIAL_REPOSITORIES_STATE,
+            ...mockData2,
+          },
+          updateRepositories(mockData3),
+        ),
+      ).toEqual({
+        ...INITIAL_REPOSITORIES_STATE,
+        ...mockData,
+        repositories: [...mockData2.repositories, ...mockData3.repositories],
+        ...(mockData3.totalCount ? { totalCount: mockData3.totalCount } : {}),
+        ...(mockData3.currentPage
+          ? { currentPage: mockData3.currentPage }
+          : {}),
+        hasNextPage: true,
       });
     });
   });
