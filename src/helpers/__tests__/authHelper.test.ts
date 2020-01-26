@@ -6,13 +6,13 @@ describe('authHelper', () => {
     login('test@mail.com', 'pass123');
 
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-      'USER_TOKEN',
+      'USER_TOKEN_KEY',
       expect.any(String),
     );
   });
   it('calls AsyncStorage.removeItem to remove saved user token on logout', () => {
     logout();
 
-    expect(AsyncStorage.removeItem).toHaveBeenCalledWith('USER_TOKEN');
+    expect(AsyncStorage.removeItem).toHaveBeenCalledWith('USER_TOKEN_KEY');
   });
 });
