@@ -7,6 +7,7 @@ import {
   onRequestRepositoriesSuccess,
   updateRepositories,
   resetRepositoriesState,
+  pushRepositories,
 } from '../../actions/repositoriesActions';
 
 const mockData = {
@@ -175,7 +176,7 @@ describe('repositoriesReducer', () => {
             ...INITIAL_REPOSITORIES_STATE,
             ...mockData,
           },
-          updateRepositories(mockData3),
+          pushRepositories(mockData3),
         ),
       ).toEqual({
         ...INITIAL_REPOSITORIES_STATE,
