@@ -9,6 +9,7 @@ import ErrorView from './ErrorView';
 import RepoListView from './RepoListView';
 import InitialView from './InitialView';
 import useRepositories from './useRepositories';
+import LogoutButton from './LogoutButton';
 
 const RepoListScreen: NavigationStackScreenComponent = props => {
   const { currentRepositoriesState, searchRepos } = useRepositories();
@@ -46,16 +47,7 @@ const RepoListScreen: NavigationStackScreenComponent = props => {
 RepoListScreen.navigationOptions = ({
   navigation,
 }: NavigationInjectedProps) => ({
-  headerRight: () => (
-    <Text
-      style={styles.logoutButton}
-      onPress={() => {
-        logout();
-        navigation.navigate('Auth');
-      }}>
-      Logout
-    </Text>
-  ),
+  headerRight: () => <LogoutButton />,
 });
 
 const styles = StyleSheet.create({
@@ -71,10 +63,6 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 20,
     justifyContent: 'center',
-  },
-  logoutButton: {
-    marginHorizontal: 5,
-    color: 'blue',
   },
 });
 
