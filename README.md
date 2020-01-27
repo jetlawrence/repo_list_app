@@ -1,11 +1,14 @@
 # repo-list-app
 
+## Install dependencies
+- Run `yarn` or `npm install`
+
 ## How to run
-- For iOS: react-native run-ios 
-- For Android: react-native run-android
+- For iOS: Run `react-native run-ios `
+- For Android: Run `react-native run-android`
 
 ## Run tests
-- yarn test or npm run test
+- Run `yarn test` or `npm run test`
 
 ## How to use app
 1. Type in any random email and password to enable Login button then press Login button.
