@@ -4,8 +4,8 @@
 - Run `yarn` or `npm install`
 
 ## How to run
-- For iOS: Run `react-native run-ios `
-- For Android: Run `react-native run-android`
+- For iOS: Run `react-native run-ios` or `npx react-native run-ios`
+- For Android: Run `react-native run-android` or `npx react-native run-android`
 
 ## Run tests
 - Run `yarn test` or `npm run test`
