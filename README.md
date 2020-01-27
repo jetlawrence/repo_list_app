@@ -2,10 +2,10 @@
 
 ## Install dependencies
 - Run `yarn` or `npm install`
+- For iOS: Go to `ios` directory then run `pod install`
 
 ## How to run
 - For iOS: Run `react-native run-ios` or `npx react-native run-ios`
-  - if you encounter an error running the app, try running `pod install` inside `ios` directory then run command again in root directory
 - For Android: Run `react-native run-android` or `npx react-native run-android`
 
 ## Run tests
